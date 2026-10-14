@@ -194,6 +194,10 @@ h1 { font: 600 clamp(2.6rem, min(9vw, 11.5vh), 6rem)/1.1 var(--head); letter-spa
 .card-main { background: linear-gradient(to bottom, rgba(39, 39, 42, .5), #000); }
 .icon { display: inline-flex; padding: .75rem; margin-bottom: 1.25rem; border-radius: .75rem; background: rgba(255, 255, 255, .05); border: 1px solid var(--line); color: var(--red-text); }
 .icon svg { width: 1.5rem; height: 1.5rem; }
+.card-link { color: inherit; text-decoration: none; }
+.card-link::before { content: ""; position: absolute; inset: 0; z-index: 1; }
+.card:hover .card-link { color: var(--red-text); }
+.card-link:focus-visible { outline: 2px solid var(--red-text); outline-offset: 4px; border-radius: .25rem; }
 .card h3 { font: 600 1.25rem/1.3 var(--head); margin-bottom: .5rem; }
 .card-main h3 { font-size: 1.875rem; letter-spacing: -.01em; margin-bottom: 1rem; }
 .card p { color: var(--z400); }
