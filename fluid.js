@@ -30,7 +30,7 @@
   };
   // Quality governor steps: grid as a fraction of the viewport, and Poisson iterations.
   const WAVE_SPAN = 1.4;       // range of uWave: the shader's radial distance (0..1) plus its 0.4 soft edge
-  const LEVELS = [{ res: 0.5, iter: 24 }, { res: 0.4, iter: 18 }, { res: 0.3, iter: 12 }, { res: 0.22, iter: 8 }];
+  const LEVELS = [{ res: 0.5, iter: 12 }, { res: 0.4, iter: 10 }, { res: 0.3, iter: 8 }, { res: 0.22, iter: 6 }];
   const MAX_W = 800, MAX_H = 560;
 
   const VERT = `#version 300 es
@@ -184,7 +184,8 @@
 
     gl.bindVertexArray(gl.createVertexArray()); // attribute-less triangle needs a bound VAO
 
-    let w = 0, h = 0, level = 0;
+    // Weak machines (few cores or little memory) start one step down; the governor still adjusts from there.
+    let w = 0, h = 0, level = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4 ? 1 : 0;
     let vel, press, div;
 
     function target() {
@@ -243,12 +244,15 @@
     }
 
     // Push the field at (x, y) (0..1 of the viewport) with a 2-value force and a radius in CSS px.
+    // The scissor box limits the draw to the splat's own radius: the force is zero beyond it.
     function push(x, y, fx, fy, cssRadius) {
+      const r = Math.max(6, cssRadius * (w / window.innerWidth));
+      gl.scissor(Math.floor(x * w - r) - 1, Math.floor(y * h - r) - 1, Math.ceil(r * 2) + 3, Math.ceil(r * 2) + 3);
       pass(P.splat, vel.r, [], (u) => {
         gl.uniform2f(u.uFbo, w, h);
         gl.uniform2f(u.uCenter, x, y);
         gl.uniform4f(u.uVal, fx, fy, 0, 0);
-        gl.uniform1f(u.uRadius, Math.max(6, cssRadius * (w / window.innerWidth)));
+        gl.uniform1f(u.uRadius, r);
       });
     }
 
@@ -315,6 +319,7 @@
       // 2. Add force: pointer, three wandering emitters, click bursts.
       gl.enable(gl.BLEND);
       gl.blendFunc(gl.ONE, gl.ONE);
+      gl.enable(gl.SCISSOR_TEST);
 
       const ease = 1 - Math.exp(-elapsed / 70);
       ptr.x += (ptr.tx - ptr.x) * ease;
@@ -341,6 +346,7 @@
       }
 
       gl.disable(gl.BLEND);
+      gl.disable(gl.SCISSOR_TEST);
 
       // 3. Make the flow incompressible: divergence, pressure solve, subtract the pressure gradient.
       pass(P.div, div, [['uVel', vel.r]], (u) => { gl.uniform2f(u.uPx, px[0], px[1]); gl.uniform1f(u.uDt, dt); });

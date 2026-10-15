@@ -412,14 +412,27 @@
     revealIO.observe(el);
   });
 
+  // ---- Border spin of the shiny buttons pauses while they are off screen ----
+  const spinIO = new IntersectionObserver((entries) => {
+    entries.forEach((en) => en.target.classList.toggle('off', !en.isIntersecting));
+  });
+  document.querySelectorAll('.shiny').forEach((el) => spinIO.observe(el));
+
   // ---- Page grid: lines fade out around the pointer. Leaving the window clears it, so the full grid returns ----
   const grid = document.querySelector('.bg-grid');
+  let gridX = 0, gridY = 0, gridRaf = 0;   // one style write per frame, however many pointer events arrive
   addEventListener('pointermove', (e) => {
-    grid.style.setProperty('--gx', `${e.clientX}px`);
-    grid.style.setProperty('--gy', `${e.clientY}px`);
+    gridX = e.clientX; gridY = e.clientY;
+    if (gridRaf) return;
+    gridRaf = requestAnimationFrame(() => {
+      gridRaf = 0;
+      grid.style.setProperty('--gx', `${gridX}px`);
+      grid.style.setProperty('--gy', `${gridY}px`);
+    });
   }, { passive: true });
   addEventListener('pointerout', (e) => {
     if (e.relatedTarget) return;
+    cancelAnimationFrame(gridRaf); gridRaf = 0;
     grid.style.removeProperty('--gx');
     grid.style.removeProperty('--gy');
   });

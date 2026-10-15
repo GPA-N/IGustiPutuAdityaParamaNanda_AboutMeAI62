@@ -13,7 +13,6 @@
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212;
 }
 
-@property --gradient-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
 
 /* Colour themes. A theme is a data-theme value on any element (the colour wave puts the old one on a frozen copy). */
 :root, [data-theme="red"] { --red: #ef233c; --red-text: #ff4a5e; --rgb: 239, 35, 60; --on-red: #fff; --bg-top: #1a0505; --banner: #f2364c; }
@@ -62,9 +61,8 @@ a:focus-visible { outline: 2px solid var(--red-text); outline-offset: 3px; }
 .bg { position: fixed; inset: 0; z-index: -4; pointer-events: none; overflow: hidden; }
 .bg-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, var(--bg-top), var(--black)); }
 .stars { position: absolute; top: 0; left: 0; background: transparent; }
-.stars-1 { width: 1px; height: 1px; box-shadow: 1900px 1178px #fff, 354px 133px #fff, 1668px 487px #fff, 1827px 951px #fff, 634px 1838px #fff, 1373px 728px #fff, 350px 1040px #fff, 383px 330px #fff, 15px 1968px #fff, 533px 1304px #fff, 351px 1771px #fff, 251px 61px #fff, 967px 964px #fff, 1062px 38px #fff, 1587px 1778px #fff, 701px 1949px #fff, 1208px 1323px #fff, 328px 1416px #fff, 435px 1471px #fff, 161px 668px #fff, 1117px 917px #fff, 1152px 39px #fff, 1263px 814px #fff, 1916px 1923px #fff, 627px 1837px #fff, 701px 742px #fff, 948px 1844px #fff, 31px 629px #fff, 1770px 594px #fff, 1244px 873px #fff, 484px 1412px #fff, 1248px 572px #fff, 399px 354px #fff, 1226px 1498px #fff, 62px 1177px #fff, 1167px 1186px #fff, 409px 28px #fff, 302px 510px #fff, 283px 208px #fff, 1324px 748px #fff, 920px 1854px #fff, 1001px 618px #fff, 1733px 414px #fff, 756px 1950px #fff, 1158px 1783px #fff, 1836px 327px #fff, 703px 292px #fff, 817px 1115px #fff, 1462px 794px #fff, 701px 821px #fff, 970px 3px #fff, 741px 1104px #fff, 1685px 1836px #fff, 1061px 146px #fff, 200px 32px #fff, 1523px 1315px #fff, 931px 238px #fff, 1474px 1370px #fff, 455px 1308px #fff, 1087px 681px #fff, 702px 1401px #fff, 1340px 1865px #fff, 272px 1956px #fff, 837px 213px #fff, 1345px 566px #fff, 531px 247px #fff, 818px 732px #fff, 1621px 1907px #fff, 994px 1927px #fff, 1596px 1169px #fff; animation: star 50s linear infinite; }
-.stars-2 { width: 2px; height: 2px; box-shadow: 666px 1715px #fff, 114px 831px #fff, 134px 954px #fff, 1895px 1882px #fff, 1298px 528px #fff, 824px 768px #fff, 1417px 480px #fff, 1153px 1460px #fff, 345px 345px #fff, 1148px 1666px #fff, 1480px 75px #fff, 1303px 825px #fff, 702px 1601px #fff, 836px 995px #fff, 724px 281px #fff, 69px 61px #fff, 353px 1394px #fff, 630px 154px #fff, 1586px 577px #fff, 1571px 1233px #fff, 488px 632px #fff, 1552px 75px #fff, 352px 1627px #fff, 1480px 1376px #fff, 1253px 639px #fff, 205px 1318px #fff, 992px 1441px #fff, 1808px 1047px #fff; animation: star 80s linear infinite; }
-@keyframes star { to { transform: translateY(-2000px); } }
+.stars-1 { width: 100%; height: calc(100% + 720px); background: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22720%22 height=%22720%22%3E%3Ccircle cx=%22593%22 cy=%22181%22 r=%220.8%22 fill=%22%23fff%22/%3E%3Ccircle cx=%2270%22 cy=%22247%22 r=%220.8%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22479%22 cy=%22321%22 r=%220.8%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22690%22 cy=%22368%22 r=%220.8%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22179%22 cy=%22524%22 r=%220.8%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22195%22 cy=%22169%22 r=%220.8%22 fill=%22%23fff%22/%3E%3Ccircle cx=%2211%22 cy=%22270%22 r=%220.8%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22656%22 cy=%22179%22 r=%220.8%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22129%22 cy=%2234%22 r=%220.8%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22487%22 cy=%22486%22 r=%221%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22535%22 cy=%2223%22 r=%221%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22354%22 cy=%22608%22 r=%221%22 fill=%22%23fff%22/%3E%3Ccircle cx=%22665%22 cy=%22168%22 r=%221%22 fill=%22%23fff%22/%3E%3C/svg%3E") 0 0 / 720px 720px; animation: star 60s linear infinite; }
+@keyframes star { to { transform: translateY(-720px); } }
 .bg-glow {
   position: absolute; top: 50%; left: 50%; width: 50rem; height: 50rem; max-width: 140vw;
   transform: translate(-50%, -50%); border-radius: 50%;
@@ -153,17 +151,16 @@ h1 { font: 600 clamp(2.6rem, min(9vw, 11.5vh), 6rem)/1.1 var(--head); letter-spa
 .cta-row { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.25rem; }
 
 .shiny {
-  --gradient-angle: 0deg;
   position: relative; display: inline-flex; overflow: hidden; isolation: isolate;
-  padding: 1rem 2.5rem; border-radius: 999px; border: 2px solid transparent; cursor: pointer;
-  background: linear-gradient(var(--black), var(--black)) padding-box, conic-gradient(from var(--gradient-angle), transparent 0%, var(--red) 5%, var(--red) 15%, var(--red) 30%, transparent 40%, transparent 100%) border-box;
-  animation: border-spin 2.5s linear infinite;
+  padding: calc(1rem + 2px) calc(2.5rem + 2px); border-radius: 999px; cursor: pointer;
 }
-.shiny::before { content: ""; position: absolute; inset: 0; z-index: 0; background: radial-gradient(circle at 50% 50%, #fff .5px, transparent 0); background-size: 4px 4px; opacity: .1; }
-.shiny span { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: .5rem; font-weight: 500; }
+.shiny::after { content: ""; position: absolute; z-index: 0; left: 50%; top: 50%; width: 200%; aspect-ratio: 1; margin: -100% 0 0 -100%; background: conic-gradient(transparent 0%, var(--red) 5%, var(--red) 15%, var(--red) 30%, transparent 40%, transparent 100%); animation: border-spin 2.5s linear infinite; }
+.shiny::before { content: ""; position: absolute; inset: 2px; z-index: 1; border-radius: inherit; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,.1) .5px, transparent 0) 0 0 / 4px 4px, var(--black); }
+.shiny span { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: .5rem; font-weight: 500; }
 .shiny svg { transition: transform .2s; }
 .shiny:hover svg { transform: translateX(.25rem); }
-@keyframes border-spin { to { --gradient-angle: 360deg; } }
+.shiny.off::after { animation-play-state: paused; }
+@keyframes border-spin { to { transform: rotate(360deg); } }
 
 .ghost { display: inline-flex; align-items: center; gap: .5rem; padding: 1rem 2rem; border-radius: 999px; background: var(--z900); border: 1px solid var(--z800); color: var(--z300); font-weight: 500; transition: color .2s, background-color .2s; }
 .ghost:hover { color: #fff; background: var(--z800); }
@@ -279,7 +276,7 @@ h1 { font: 600 clamp(2.6rem, min(9vw, 11.5vh), 6rem)/1.1 var(--head); letter-spa
 .sw { display: inline-block; white-space: nowrap; }
 .ch { display: inline-block; }
 .split:not(.go) .ch { opacity: 0; }
-.split.go .ch { animation: char-in var(--dur-slow) var(--ease) both; animation-delay: calc(var(--i) * var(--st, var(--stagger-char))); }
+.split.go .ch { animation: char-in var(--dur-slow) var(--ease) backwards; animation-delay: calc(var(--i) * var(--st, var(--stagger-char))); }
 @keyframes char-in { from { opacity: 0; transform: translateY(.6em); filter: blur(12px); } }
 
 /* Nav: sliding ink under the current section, and a scroll-progress hairline */
