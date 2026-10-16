@@ -418,25 +418,6 @@
   });
   document.querySelectorAll('.shiny').forEach((el) => spinIO.observe(el));
 
-  // ---- Page grid: lines fade out around the pointer. Leaving the window clears it, so the full grid returns ----
-  const grid = document.querySelector('.bg-grid');
-  let gridX = 0, gridY = 0, gridRaf = 0;   // one style write per frame, however many pointer events arrive
-  addEventListener('pointermove', (e) => {
-    gridX = e.clientX; gridY = e.clientY;
-    if (gridRaf) return;
-    gridRaf = requestAnimationFrame(() => {
-      gridRaf = 0;
-      grid.style.setProperty('--gx', `${gridX}px`);
-      grid.style.setProperty('--gy', `${gridY}px`);
-    });
-  }, { passive: true });
-  addEventListener('pointerout', (e) => {
-    if (e.relatedTarget) return;
-    cancelAnimationFrame(gridRaf); gridRaf = 0;
-    grid.style.removeProperty('--gx');
-    grid.style.removeProperty('--gy');
-  });
-
   // ---- In-page links glide. Browsers skip CSS smooth scrolling when the OS has animation effects off, so do it here ----
   const GLIDE_MS = { min: 350, max: 1100, perPx: 0.25 };
   let glide = 0;
